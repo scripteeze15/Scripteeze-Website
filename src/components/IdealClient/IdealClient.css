@@ -1,0 +1,100 @@
+/* =========================================
+   Ideal Client Section Styles
+   ========================================= */
+
+.ideal-client {
+    position: relative;
+    background: var(--color-bg-secondary);
+}
+
+.ideal-client__content {
+    position: relative;
+}
+
+/* Decorative Line */
+.ideal-client__line-accent {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-accent-primary), transparent);
+    opacity: 0.5;
+}
+
+/* Grid Layout */
+.ideal-client__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    align-items: center;
+}
+
+@media (min-width: 900px) {
+    .ideal-client__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-16);
+    }
+}
+
+/* Left - Headline */
+.ideal-client__headline {
+    font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* Right - Points */
+.ideal-client__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+.ideal-client__point {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    font-size: clamp(var(--text-lg), 2vw, var(--text-xl));
+    color: var(--color-text-secondary);
+    padding: var(--space-4) var(--space-5);
+    background: var(--color-bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: border-color var(--transition-base), transform var(--transition-base);
+}
+
+.ideal-client__point:hover {
+    border-color: rgba(245, 166, 35, 0.2);
+    transform: translateX(8px);
+}
+
+/* Check Mark */
+.ideal-client__check {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(245, 166, 35, 0.15);
+    border-radius: var(--radius-md);
+    color: var(--color-accent-primary);
+}
+
+.ideal-client__check svg {
+    width: 16px;
+    height: 16px;
+}
+
+.ideal-client__check-path {
+    stroke-dasharray: 24;
+    stroke-dashoffset: 24;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .ideal-client__headline {
+        text-align: center;
+    }
+}

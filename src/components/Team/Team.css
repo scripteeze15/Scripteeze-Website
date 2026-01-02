@@ -1,0 +1,209 @@
+/* =========================================
+   Team Section Styles
+   ========================================= */
+
+.team {
+    position: relative;
+    background: var(--color-bg-primary);
+    overflow: hidden;
+}
+
+/* Header */
+.team__header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+}
+
+.team__label {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent-primary);
+    margin-bottom: var(--space-4);
+}
+
+.team__title {
+    font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
+    margin-bottom: var(--space-4);
+}
+
+.team__subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-text-tertiary);
+    max-width: 50ch;
+    margin: 0 auto;
+}
+
+/* Cards Container - Centered Grid */
+.team__cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+@media (max-width: 1000px) {
+    .team__cards-container {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 700px;
+    }
+}
+
+@media (max-width: 650px) {
+    .team__cards-container {
+        grid-template-columns: 1fr;
+        max-width: 350px;
+    }
+}
+
+/* Creator Card */
+.creator-card {
+    position: relative;
+    background: var(--color-bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color var(--transition-base);
+    display: flex;
+    flex-direction: column;
+}
+
+.creator-card:hover {
+    border-color: rgba(245, 166, 35, 0.3);
+}
+
+/* Image Container - Top Half */
+.creator-card__image-container {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+}
+
+@media (min-width: 650px) {
+    .creator-card__image-container {
+        height: 320px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .creator-card__image-container {
+        height: 300px;
+    }
+}
+
+/* Profile Image - Grayscale by default */
+.creator-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    filter: grayscale(100%);
+    transition: filter var(--transition-base), transform var(--transition-base);
+}
+
+.creator-card:hover .creator-card__image {
+    filter: grayscale(0%);
+    transform: scale(1.08);
+}
+
+/* Gradient Overlay - Seamless blend into card */
+.creator-card__gradient {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(19, 27, 46, 0.2) 20%,
+            rgba(19, 27, 46, 0.5) 40%,
+            rgba(19, 27, 46, 0.8) 60%,
+            rgba(19, 27, 46, 0.95) 80%,
+            rgba(19, 27, 46, 1) 100%);
+    pointer-events: none;
+}
+
+/* Card Content - Bottom Half */
+.creator-card__content {
+    position: relative;
+    z-index: 1;
+    padding: var(--space-4) var(--space-6) var(--space-6);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background: rgba(19, 27, 46, 0.6);
+    margin-top: -1px;
+}
+
+/* Info */
+.creator-card__info {
+    margin-bottom: var(--space-4);
+}
+
+.creator-card__name {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin-bottom: var(--space-1);
+}
+
+.creator-card__role {
+    font-size: var(--text-sm);
+    color: var(--color-accent-primary);
+    font-weight: 500;
+}
+
+/* Expertise */
+.creator-card__expertise {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-top: var(--space-4);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.creator-card__expertise li {
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+    padding-left: var(--space-4);
+    position: relative;
+}
+
+.creator-card__expertise li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 1px;
+    background: var(--color-accent-primary);
+}
+
+/* Glow Effect */
+.creator-card__glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 30%,
+            rgba(245, 166, 35, 0.1) 0%,
+            transparent 60%);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    pointer-events: none;
+}
+
+.creator-card:hover .creator-card__glow {
+    opacity: 1;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 650px) {
+    .creator-card__content {
+        padding: var(--space-4) var(--space-5) var(--space-5);
+    }
+}

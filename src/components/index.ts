@@ -1,0 +1,8 @@
+export { default as Hero } from './Hero/Hero';
+export { default as Philosophy } from './Philosophy/Philosophy';
+export { default as Services } from './Services/Services';
+export { default as Experience } from './Experience/Experience';
+export { default as Team } from './Team/Team';
+export { default as IdealClient } from './IdealClient/IdealClient';
+export { default as FinalCTA } from './FinalCTA/FinalCTA';
+export { default as Footer } from './Footer/Footer';
