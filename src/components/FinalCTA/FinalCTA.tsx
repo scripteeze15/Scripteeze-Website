@@ -105,7 +105,11 @@ const FinalCTA: React.FC = () => {
                 <div className="final-cta__gradient-1" />
                 <div className="final-cta__gradient-2" />
                 <div ref={logoWatermarkRef} className="final-cta__watermark">
-                    SCRIPTEEZE
+                    <img
+                        src="/scripteeze-logo.png"
+                        alt=""
+                        className="final-cta__watermark-image"
+                    />
                 </div>
 
                 {/* Decorative Rings */}

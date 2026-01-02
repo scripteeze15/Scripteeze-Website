@@ -43,15 +43,16 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: var(--font-heading);
-    font-size: clamp(120px, 22vw, 350px);
-    font-weight: 900;
-    letter-spacing: 0.1em;
-    color: var(--color-accent-primary);
     opacity: 0;
-    white-space: nowrap;
     pointer-events: none;
     user-select: none;
+}
+
+.final-cta__watermark-image {
+    width: clamp(300px, 55vw, 600px);
+    height: clamp(300px, 55vw, 600px);
+    object-fit: contain;
+    filter: grayscale(30%) brightness(0.8);
 }
 
 /* Decorative Rings */

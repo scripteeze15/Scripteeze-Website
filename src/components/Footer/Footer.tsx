@@ -72,7 +72,11 @@ const Footer: React.FC = () => {
                 <div className="footer__content">
                     {/* Logo */}
                     <div className="footer__logo">
-                        <span className="footer__logo-text">SCRIPTEEZE</span>
+                        <img
+                            src="/scripteeze-logo.png"
+                            alt="SCRIPTEEZE Logo"
+                            className="footer__logo-image"
+                        />
                     </div>
 
                     {/* Divider */}

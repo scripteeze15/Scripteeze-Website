@@ -205,23 +205,18 @@
     gap: var(--space-3);
 }
 
-.hero__logo-text {
-    font-family: var(--font-heading);
-    font-size: var(--text-lg);
-    font-weight: 700;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    background: var(--gradient-gold);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.hero__logo-image {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 30px rgba(245, 166, 35, 0.3));
+    transition: filter var(--transition-base), transform var(--transition-base);
 }
 
-.hero__logo-underline {
-    width: 60px;
-    height: 2px;
-    background: var(--gradient-gold);
-    border-radius: var(--radius-full);
+.hero__logo-image:hover {
+    filter: drop-shadow(0 0 40px rgba(245, 166, 35, 0.5));
+    transform: scale(1.02);
 }
 
 /* Headline */

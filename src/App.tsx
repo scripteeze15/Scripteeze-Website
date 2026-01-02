@@ -6,6 +6,7 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // Components
 import Hero from './components/Hero/Hero';
@@ -14,11 +15,12 @@ import Services from './components/Services/Services';
 import Experience from './components/Experience/Experience';
 import Team from './components/Team/Team';
 import IdealClient from './components/IdealClient/IdealClient';
+import Contact from './components/Contact/Contact';
 import FinalCTA from './components/FinalCTA/FinalCTA';
 import Footer from './components/Footer/Footer';
 
 // Register GSAP plugins
-gsap.registerPlugin(ScrollToPlugin);
+gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -62,10 +64,13 @@ const App: React.FC = () => {
       {/* 6. Ideal Client Section */}
       <IdealClient />
 
-      {/* 7. Final CTA Section */}
+      {/* 7. Contact Form Section */}
+      <Contact />
+
+      {/* 8. Final CTA Section */}
       <FinalCTA />
 
-      {/* 8. Footer */}
+      {/* 9. Footer */}
       <Footer />
     </main>
   );

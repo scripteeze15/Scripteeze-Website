@@ -110,8 +110,8 @@ const Hero: React.FC = () => {
     };
 
     const scrollToContact = () => {
-        const ctaSection = document.getElementById('final-cta');
-        ctaSection?.scrollIntoView({ behavior: 'smooth' });
+        const contactSection = document.getElementById('contact');
+        contactSection?.scrollIntoView({ behavior: 'smooth' });
     };
 
     return (
@@ -140,8 +140,11 @@ const Hero: React.FC = () => {
             <div className="container hero__container">
                 {/* Logo */}
                 <div ref={logoRef} className="hero__logo">
-                    <span className="hero__logo-text">SCRIPTEEZE</span>
-                    <div className="hero__logo-underline" />
+                    <img
+                        src="/scripteeze-logo.png"
+                        alt="SCRIPTEEZE Logo"
+                        className="hero__logo-image"
+                    />
                 </div>
 
                 {/* Headline */}
