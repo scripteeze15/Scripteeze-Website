@@ -9,6 +9,7 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // Components
+import Header from './components/Header/Header';
 import Hero from './components/Hero/Hero';
 import Philosophy from './components/Philosophy/Philosophy';
 import Services from './components/Services/Services';
@@ -45,34 +46,39 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <main className="app" id="app">
-      {/* 1. Hero Section */}
-      <Hero />
+    <>
+      {/* Fixed Header */}
+      <Header />
 
-      {/* 2. Philosophy / Trust Section */}
-      <Philosophy />
+      <main className="app" id="app">
+        {/* 1. Hero Section */}
+        <Hero />
 
-      {/* 3. Services Section */}
-      <Services />
+        {/* 2. Philosophy / Trust Section */}
+        <Philosophy />
 
-      {/* 4. Experience / Authority Section */}
-      <Experience />
+        {/* 3. Services Section */}
+        <Services />
 
-      {/* 5. Team / Creators Section */}
-      <Team />
+        {/* 4. Experience / Authority Section */}
+        <Experience />
 
-      {/* 6. Ideal Client Section */}
-      <IdealClient />
+        {/* 5. Team / Creators Section */}
+        <Team />
 
-      {/* 7. Contact Form Section */}
-      <Contact />
+        {/* 6. Ideal Client Section */}
+        <IdealClient />
 
-      {/* 8. Final CTA Section */}
-      <FinalCTA />
+        {/* 7. Contact Form Section */}
+        <Contact />
 
-      {/* 9. Footer */}
-      <Footer />
-    </main>
+        {/* 8. Final CTA Section */}
+        <FinalCTA />
+
+        {/* 9. Footer */}
+        <Footer />
+      </main>
+    </>
   );
 };
 

@@ -196,7 +196,7 @@ const Services: React.FC = () => {
                 <div ref={triggerRef}>
                     {/* Header */}
                     <div className="services__header">
-                        <span className="services__label">What We Do</span>
+                        <span className="services__label">What We Offer</span>
                         <h2 className="services__title">
                             Services built for <span className="text-gradient">creators</span>
                         </h2>

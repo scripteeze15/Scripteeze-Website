@@ -172,7 +172,7 @@ const Hero: React.FC = () => {
                         </svg>
                     </button>
                     <button className="btn btn-secondary" onClick={scrollToWork}>
-                        View Our Work
+                        What We Offer
                     </button>
                 </div>
             </div>
