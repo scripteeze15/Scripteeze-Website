@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../styles/index.css";
 
 export const metadata: Metadata = {
+    metadataBase: new URL("https://scripteeze.in"),
     title: "SCRIPTEEZE - We Build Stories That Sell",
     description:
         "A creator-first social media agency built to win on today's platforms. We build stories that sell through social media management, video editing, scriptwriting, and more.",

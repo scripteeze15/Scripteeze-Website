@@ -1,6 +1,6 @@
 /**
  * Contact Section - Premium contact form with validation
- * Sends enquiries via PHP backend to info@scripteeze.in
+ * Saves validated enquiries through the Next.js contact API
  */
 
 import { useState, useRef, useEffect } from 'react';
@@ -16,12 +16,21 @@ interface FormData {
     phone: string;
     service: string;
     message: string;
+    website: string;
 }
 
 interface FormErrors {
     name?: string;
     email?: string;
+    phone?: string;
+    service?: string;
     message?: string;
+}
+
+interface ContactApiResponse {
+    success?: boolean;
+    message?: string;
+    fieldErrors?: FormErrors;
 }
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
@@ -37,6 +46,7 @@ const Contact: React.FC = () => {
         phone: '',
         service: '',
         message: '',
+        website: '',
     });
 
     const [errors, setErrors] = useState<FormErrors>({});
@@ -117,13 +127,18 @@ const Contact: React.FC = () => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
 
+        if (status === 'success' || status === 'error') {
+            setStatus('idle');
+            setStatusMessage('');
+        }
+
         // Clear error on change
         if (errors[name as keyof FormErrors]) {
             setErrors(prev => ({ ...prev, [name]: undefined }));
         }
     };
 
-    // Handle form submission using FormSubmit service
+    // Submit to the server-side Next.js route, which validates and stores the enquiry.
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
@@ -149,8 +164,7 @@ const Contact: React.FC = () => {
         setStatus('submitting');
 
         try {
-            // PHP backend for Hostinger deployment
-            const response = await fetch('/api/contact.php', {
+            const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -159,17 +173,18 @@ const Contact: React.FC = () => {
                 body: JSON.stringify({
                     name: formData.name,
                     email: formData.email,
-                    phone: formData.phone || 'Not provided',
-                    service: formData.service || 'Not specified',
+                    phone: formData.phone,
+                    service: formData.service,
                     message: formData.message,
+                    website: formData.website,
                 }),
             });
 
-            const result = await response.json();
+            const result = await response.json().catch(() => null) as ContactApiResponse | null;
 
-            if (response.ok && result.success) {
+            if (response.ok && result?.success) {
                 setStatus('success');
-                setStatusMessage('Thank you! Your message has been sent successfully. We\'ll get back to you within 24 hours.');
+                setStatusMessage(result.message || 'Thank you! Your enquiry has been received. We\'ll get back to you within 24 hours.');
 
                 // Reset form
                 setFormData({
@@ -178,18 +193,28 @@ const Contact: React.FC = () => {
                     phone: '',
                     service: '',
                     message: '',
+                    website: '',
                 });
 
                 // Success animation
                 if (formRef.current && !prefersReducedMotion()) {
-                    gsap.fromTo(
-                        '.contact__status--success',
-                        { opacity: 0, y: 20, scale: 0.95 },
-                        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'back.out(1.7)' }
-                    );
+                    requestAnimationFrame(() => {
+                        const successMessage = formRef.current?.querySelector('.contact__status--success');
+                        if (!successMessage) return;
+
+                        gsap.fromTo(
+                            successMessage,
+                            { opacity: 0, y: 20, scale: 0.95 },
+                            { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'back.out(1.7)' }
+                        );
+                    });
                 }
             } else {
-                throw new Error(result.message || 'Failed to send message');
+                if (result?.fieldErrors) {
+                    setErrors(result.fieldErrors);
+                }
+
+                throw new Error(result?.message || 'We could not save your enquiry. Please try again.');
             }
         } catch (error) {
             setStatus('error');
@@ -242,6 +267,19 @@ const Contact: React.FC = () => {
                             onSubmit={handleSubmit}
                             noValidate
                         >
+                            <div className="contact__honeypot" aria-hidden="true">
+                                <label htmlFor="contact-website">Leave this field empty</label>
+                                <input
+                                    type="text"
+                                    id="contact-website"
+                                    name="website"
+                                    value={formData.website}
+                                    onChange={handleChange}
+                                    tabIndex={-1}
+                                    autoComplete="off"
+                                />
+                            </div>
+
                             {/* Name */}
                             <div className={`contact__form-group ${errors.name ? 'has-error' : ''}`}>
                                 <label htmlFor="contact-name" className="contact__label-text">
@@ -256,8 +294,14 @@ const Contact: React.FC = () => {
                                     placeholder="John Doe"
                                     className="contact__input"
                                     disabled={status === 'submitting'}
+                                    required
+                                    minLength={2}
+                                    maxLength={100}
+                                    autoComplete="name"
+                                    aria-invalid={Boolean(errors.name)}
+                                    aria-describedby={errors.name ? 'contact-name-error' : undefined}
                                 />
-                                {errors.name && <span className="contact__error">{errors.name}</span>}
+                                {errors.name && <span id="contact-name-error" className="contact__error">{errors.name}</span>}
                             </div>
 
                             {/* Email */}
@@ -274,12 +318,17 @@ const Contact: React.FC = () => {
                                     placeholder="john@example.com"
                                     className="contact__input"
                                     disabled={status === 'submitting'}
+                                    required
+                                    maxLength={254}
+                                    autoComplete="email"
+                                    aria-invalid={Boolean(errors.email)}
+                                    aria-describedby={errors.email ? 'contact-email-error' : undefined}
                                 />
-                                {errors.email && <span className="contact__error">{errors.email}</span>}
+                                {errors.email && <span id="contact-email-error" className="contact__error">{errors.email}</span>}
                             </div>
 
                             {/* Phone */}
-                            <div className="contact__form-group">
+                            <div className={`contact__form-group ${errors.phone ? 'has-error' : ''}`}>
                                 <label htmlFor="contact-phone" className="contact__label-text">
                                     Phone Number <span className="optional">(Optional)</span>
                                 </label>
@@ -292,11 +341,16 @@ const Contact: React.FC = () => {
                                     placeholder="+91 98765 43210"
                                     className="contact__input"
                                     disabled={status === 'submitting'}
+                                    maxLength={30}
+                                    autoComplete="tel"
+                                    aria-invalid={Boolean(errors.phone)}
+                                    aria-describedby={errors.phone ? 'contact-phone-error' : undefined}
                                 />
+                                {errors.phone && <span id="contact-phone-error" className="contact__error">{errors.phone}</span>}
                             </div>
 
                             {/* Service */}
-                            <div className="contact__form-group">
+                            <div className={`contact__form-group ${errors.service ? 'has-error' : ''}`}>
                                 <label htmlFor="contact-service" className="contact__label-text">
                                     Service Interested In
                                 </label>
@@ -307,6 +361,8 @@ const Contact: React.FC = () => {
                                     onChange={handleChange}
                                     className="contact__select"
                                     disabled={status === 'submitting'}
+                                    aria-invalid={Boolean(errors.service)}
+                                    aria-describedby={errors.service ? 'contact-service-error' : undefined}
                                 >
                                     <option value="">Select a service...</option>
                                     {services.map(service => (
@@ -315,6 +371,7 @@ const Contact: React.FC = () => {
                                         </option>
                                     ))}
                                 </select>
+                                {errors.service && <span id="contact-service-error" className="contact__error">{errors.service}</span>}
                             </div>
 
                             {/* Message */}
@@ -331,13 +388,22 @@ const Contact: React.FC = () => {
                                     rows={5}
                                     className="contact__textarea"
                                     disabled={status === 'submitting'}
+                                    required
+                                    minLength={10}
+                                    maxLength={5000}
+                                    aria-invalid={Boolean(errors.message)}
+                                    aria-describedby={errors.message ? 'contact-message-error' : undefined}
                                 />
-                                {errors.message && <span className="contact__error">{errors.message}</span>}
+                                {errors.message && <span id="contact-message-error" className="contact__error">{errors.message}</span>}
                             </div>
 
                             {/* Status Message */}
                             {status !== 'idle' && status !== 'submitting' && (
-                                <div className={`contact__status contact__status--${status}`}>
+                                <div
+                                    className={`contact__status contact__status--${status}`}
+                                    role={status === 'error' ? 'alert' : 'status'}
+                                    aria-live="polite"
+                                >
                                     {status === 'success' && (
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20">
                                             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />

@@ -6,8 +6,8 @@ We Build Stories That Sell.
 
 ## 🚀 Tech Stack
 
-- **React 19** - UI Library
-- **Vite 7** - Build Tool & Dev Server
+- **Next.js 16** - Full-stack React framework and Node.js server
+- **React 18** - UI library
 - **TypeScript** - Type Safety (Strict Mode)
 - **GSAP** - Premium Animations
 - **Modern CSS** - Custom Properties, Flexbox, Grid
@@ -63,8 +63,8 @@ npm run dev
 # Build for production
 npm run build
 
-# Preview production build
-npm run preview
+# Run the production server after building
+npm run start
 ```
 
 ## 🎨 Design System
@@ -120,7 +120,7 @@ All animations are handled through GSAP with custom utilities in `src/utils/anim
 | `npm run dev` | Start development server |
 | `npm run build` | Build for production |
 | `npm run lint` | Run ESLint |
-| `npm run preview` | Preview production build |
+| `npm run start` | Start the production Node.js server |
 
 ## 📝 License
 
@@ -130,3 +130,46 @@ All animations are handled through GSAP with custom utilities in `src/utils/anim
 
 **Contact**: info@scripteeze.in  
 **Instagram**: [@scripteeze](https://instagram.com/scripteeze)
+
+## Contact submissions on Hostinger
+
+The contact form is handled by the Next.js route at `POST /api/contact`. Valid
+submissions are appended to `server/submissions.csv` on the Node.js server. The
+CSV is created automatically on the first successful submission.
+
+### Hostinger environment variables
+
+Add these under **Website Dashboard → Environment Variables**, then redeploy:
+
+```env
+CONTACT_EXPORT_TOKEN=use-a-long-random-secret-with-at-least-24-characters
+CONTACT_DATA_DIR=./server
+```
+
+Generate a strong export token locally with:
+
+```bash
+node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
+```
+
+`CONTACT_DATA_DIR` is optional and defaults to `server` in the application root.
+You can download `server/submissions.csv` directly through Hostinger File Manager.
+Because application deployments can replace files, export or back up this CSV
+before changing repositories or performing any deployment that replaces the app
+directory. If Hostinger gives you a separate persistent writable directory, set
+`CONTACT_DATA_DIR` to that absolute path.
+
+### Secure CSV export
+
+The export endpoint is `GET /api/contact/export` and requires the secret token in
+an `Authorization` header. Download the CSV to Windows with PowerShell:
+
+```powershell
+$headers = @{ Authorization = "Bearer YOUR_CONTACT_EXPORT_TOKEN" }
+Invoke-WebRequest "https://scripteeze.in/api/contact/export" `
+  -Headers $headers `
+  -OutFile "$HOME\Downloads\scripteeze-submissions.csv"
+```
+
+The token is never accepted in the URL, which keeps it out of browser history and
+most server access logs.
