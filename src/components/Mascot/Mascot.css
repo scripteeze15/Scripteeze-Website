@@ -1,0 +1,122 @@
+/* =========================================
+   Mascot Styles - Persistent Floating Creature
+   ========================================= */
+
+.mascot {
+    position: fixed;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    width: clamp(80px, 12vw, 150px);
+    aspect-ratio: 1 / 1;
+    z-index: 1000;
+    pointer-events: auto;
+    cursor: pointer;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+    transition: transform var(--transition-base), filter var(--transition-base);
+}
+
+.mascot:hover {
+    transform: translateY(-5px) scale(1.05);
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5));
+}
+
+.mascot__sprite-layer {
+    width: 100%;
+    height: 100%;
+    background-image: url('/creature-sprite.jpg');
+    /* 5 columns, 2 rows => the image is 500% wide and 200% tall compared to a single frame */
+    background-size: 500% 200%;
+    background-repeat: no-repeat;
+    /* This mix-blend-mode will knock out a pure white background if needed, 
+       otherwise we rely on the shape */
+    mix-blend-mode: multiply;
+}
+
+/* 
+  The sprite sheet has 5 columns and 2 rows. 
+  Positions: 
+  Col 1: 0%
+  Col 2: 25%
+  Col 3: 50%
+  Col 4: 75%
+  Col 5: 100%
+  
+  Row 1: 0%
+  Row 2: 100%
+*/
+
+.mascot[data-frame="0"] .mascot__sprite-layer {
+    background-position: 0% 0%;
+}
+
+.mascot[data-frame="1"] .mascot__sprite-layer {
+    background-position: 25% 0%;
+}
+
+.mascot[data-frame="2"] .mascot__sprite-layer {
+    background-position: 50% 0%;
+}
+
+.mascot[data-frame="3"] .mascot__sprite-layer {
+    background-position: 75% 0%;
+}
+
+.mascot[data-frame="4"] .mascot__sprite-layer {
+    background-position: 100% 0%;
+}
+
+.mascot[data-frame="5"] .mascot__sprite-layer {
+    background-position: 0% 100%;
+}
+
+.mascot[data-frame="6"] .mascot__sprite-layer {
+    background-position: 25% 100%;
+}
+
+.mascot[data-frame="7"] .mascot__sprite-layer {
+    background-position: 50% 100%;
+}
+
+.mascot[data-frame="8"] .mascot__sprite-layer {
+    background-position: 75% 100%;
+}
+
+.mascot[data-frame="9"] .mascot__sprite-layer {
+    background-position: 100% 100%;
+}
+
+/* Speech Bubble */
+.mascot__bubble {
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    background: var(--color-brand-white);
+    color: var(--color-brand-black);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-2xl);
+    border-bottom-left-radius: 4px;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+    pointer-events: none;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+}
+
+.mascot--speaking .mascot__bubble {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Small caret */
+.mascot__bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 10px;
+    border-left: 10px solid var(--color-brand-white);
+    border-bottom: 10px solid transparent;
+}

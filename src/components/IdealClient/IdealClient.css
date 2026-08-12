@@ -1,10 +1,10 @@
 /* =========================================
-   Ideal Client Section Styles
+   Ideal Client Section Styles - Black Editorial
    ========================================= */
 
 .ideal-client {
     position: relative;
-    background: var(--color-bg-secondary);
+    background: var(--color-brand-black);
 }
 
 .ideal-client__content {
@@ -18,7 +18,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--color-accent-primary), transparent);
+    background: linear-gradient(90deg, transparent, var(--color-brand-red), transparent);
     opacity: 0.5;
 }
 
@@ -42,6 +42,13 @@
     font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
     font-weight: 700;
     line-height: 1.2;
+    color: var(--color-brand-white);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.ideal-client__headline .text-gradient {
+    color: var(--color-brand-red);
 }
 
 /* Right - Points */
@@ -58,14 +65,15 @@
     font-size: clamp(var(--text-lg), 2vw, var(--text-xl));
     color: var(--color-text-secondary);
     padding: var(--space-4) var(--space-5);
-    background: var(--color-bg-card);
-    border-radius: var(--radius-lg);
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: var(--radius-2xl);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     transition: border-color var(--transition-base), transform var(--transition-base);
+    font-family: var(--font-body);
 }
 
 .ideal-client__point:hover {
-    border-color: rgba(245, 166, 35, 0.2);
+    border-color: var(--color-brand-red);
     transform: translateX(8px);
 }
 
@@ -77,9 +85,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(245, 166, 35, 0.15);
-    border-radius: var(--radius-md);
-    color: var(--color-accent-primary);
+    background: rgba(255, 49, 49, 0.15);
+    border-radius: var(--radius-2xl);
+    color: var(--color-brand-red);
 }
 
 .ideal-client__check svg {

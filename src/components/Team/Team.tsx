@@ -143,7 +143,7 @@ const Team: React.FC = () => {
                     <div className="team__header">
                         <span className="team__label">The Team</span>
                         <h2 className="team__title">
-                            Meet the <span className="text-gradient">creators</span>
+                            Meet the <span className="script-accent text-gradient">creators</span>
                         </h2>
                         <p className="team__subtitle">
                             People who understand content because they've built audiences themselves.

@@ -91,7 +91,7 @@ const Philosophy: React.FC = () => {
                             <span className="philosophy__label">Our Philosophy</span>
                             <h2 className="philosophy__headline">
                                 Real creators.<br />
-                                <span className="text-gradient">Real results.</span>
+                                Real <span className="script-accent text-gradient">results.</span>
                             </h2>
                         </div>
 

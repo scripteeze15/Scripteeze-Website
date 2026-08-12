@@ -71,7 +71,7 @@ const IdealClient: React.FC = () => {
                         <div className="ideal-client__left">
                             <h2 className="ideal-client__headline">
                                 We're the right fit if you want
-                                <span className="text-gradient"> more than output.</span>
+                                <span className="script-accent text-gradient"> more than output.</span>
                             </h2>
                         </div>
 

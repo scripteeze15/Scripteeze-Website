@@ -150,7 +150,7 @@ const Hero: React.FC = () => {
                 {/* Headline */}
                 <h1 ref={headlineRef} className="hero__headline">
                     {headline.split(' ').map((word, index) => (
-                        <span key={index} className="word">
+                        <span key={index} className={`word ${word.replace('.', '') === 'Stories' ? 'script-accent' : ''}`}>
                             {word}
                             {index < headline.split(' ').length - 1 && ' '}
                         </span>

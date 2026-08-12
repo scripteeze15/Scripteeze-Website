@@ -1,10 +1,10 @@
 /* =========================================
-   Experience Section Styles
+   Experience Section Styles - Black Editorial
    ========================================= */
 
 .experience {
     position: relative;
-    background: var(--color-bg-secondary);
+    background: var(--color-brand-black);
     overflow: hidden;
 }
 
@@ -21,7 +21,7 @@
     right: -200px;
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(245, 166, 35, 0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 49, 49, 0.06) 0%, transparent 70%);
     transform: translateY(-50%);
     pointer-events: none;
 }
@@ -32,6 +32,19 @@
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: var(--space-16);
+    color: var(--color-brand-white);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+}
+
+.experience__headline .text-gradient {
+    color: var(--color-brand-red);
+}
+
+.experience__headline .script-accent {
+    color: var(--color-brand-red);
+    font-size: 1.05em;
 }
 
 /* Points */
@@ -54,7 +67,7 @@
     font-family: var(--font-heading);
     font-size: var(--text-5xl);
     font-weight: 800;
-    color: var(--color-accent-primary);
+    color: var(--color-brand-red);
     opacity: 0.3;
     line-height: 1;
     min-width: 80px;
@@ -70,13 +83,16 @@
 .experience__point-title {
     font-size: clamp(var(--text-xl), 2.5vw, var(--text-2xl));
     font-weight: 600;
-    color: var(--color-text-primary);
+    color: var(--color-brand-white);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
 }
 
 .experience__point-description {
     font-size: var(--text-base);
-    color: var(--color-text-tertiary);
+    color: rgba(255, 255, 255, 0.7);
     max-width: 45ch;
+    font-family: var(--font-body);
 }
 
 .experience__point-line {
@@ -85,29 +101,33 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, var(--color-accent-primary), transparent);
+    background: linear-gradient(90deg, rgba(255, 49, 49, 0.3), transparent);
     transform-origin: left center;
-    opacity: 0.3;
+    opacity: 0.5;
 }
 
 /* Closing */
 .experience__closing {
     text-align: center;
     padding: var(--space-8);
-    background: var(--color-bg-card);
-    border-radius: var(--radius-xl);
-    border: 1px solid rgba(245, 166, 35, 0.1);
+    background: rgba(255, 49, 49, 0.08);
+    border-radius: var(--radius-2xl);
+    border: 1px solid rgba(255, 49, 49, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .experience__closing p {
     font-size: clamp(var(--text-xl), 2.5vw, var(--text-2xl));
-    color: var(--color-text-secondary);
+    color: var(--color-brand-white);
     margin: 0 auto;
+    font-family: var(--font-body);
 }
 
 .experience__closing strong {
-    color: var(--color-accent-primary);
-    font-weight: 600;
+    color: var(--color-brand-red);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
 }
 
 /* Responsive */

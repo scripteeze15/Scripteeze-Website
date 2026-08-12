@@ -1,11 +1,12 @@
 /* =========================================
-   Philosophy Section Styles - Enhanced
+   Philosophy Section Styles - White Editorial
    ========================================= */
 
 .philosophy {
     position: relative;
-    background: var(--color-bg-secondary);
+    background: var(--color-brand-white);
     overflow: hidden;
+    color: var(--color-brand-black);
 }
 
 /* Large Quote Mark */
@@ -15,7 +16,7 @@
     left: 5%;
     font-family: Georgia, serif;
     font-size: clamp(150px, 25vw, 350px);
-    color: var(--color-accent-primary);
+    color: var(--color-brand-red);
     opacity: 0;
     line-height: 1;
     pointer-events: none;
@@ -32,7 +33,7 @@
 .philosophy__accent-shape--1 {
     width: 200px;
     height: 200px;
-    border: 1px solid rgba(245, 166, 35, 0.15);
+    border: 1px solid rgba(255, 49, 49, 0.15);
     top: 20%;
     right: 10%;
 }
@@ -40,7 +41,7 @@
 .philosophy__accent-shape--2 {
     width: 80px;
     height: 80px;
-    background: rgba(245, 166, 35, 0.05);
+    background: rgba(255, 49, 49, 0.05);
     bottom: 20%;
     left: 15%;
 }
@@ -64,18 +65,18 @@
 
 .philosophy__divider-line {
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--color-accent-primary), transparent);
+    background: linear-gradient(90deg, transparent, var(--color-brand-red), transparent);
     transform-origin: left center;
 }
 
 .philosophy__divider-line--1 {
     width: 100%;
-    opacity: 0.6;
+    opacity: 0.4;
 }
 
 .philosophy__divider-line--2 {
     width: 60%;
-    opacity: 0.3;
+    opacity: 0.2;
 }
 
 .philosophy__divider-line--bottom {
@@ -83,7 +84,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    opacity: 0.4;
+    opacity: 0.3;
 }
 
 /* Grid Layout */
@@ -109,11 +110,11 @@
     font-weight: 600;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--color-accent-primary);
+    color: var(--color-brand-red);
     margin-bottom: var(--space-4);
     padding: var(--space-2) var(--space-4);
-    border: 1px solid rgba(245, 166, 35, 0.3);
-    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 49, 49, 0.3);
+    border-radius: var(--radius-2xl);
 }
 
 /* Left Side */
@@ -125,7 +126,18 @@
     font-size: clamp(var(--text-4xl), 6vw, var(--text-7xl));
     font-weight: 700;
     line-height: 1.1;
-    letter-spacing: -0.03em;
+    letter-spacing: 0.02em;
+    color: var(--color-brand-black);
+    text-transform: uppercase;
+}
+
+.philosophy__headline .text-gradient {
+    color: var(--color-brand-red);
+}
+
+.philosophy__headline .script-accent {
+    color: var(--color-brand-red);
+    font-size: 1.1em;
 }
 
 /* Right Side */
@@ -142,21 +154,22 @@
 .philosophy__copy p {
     font-size: clamp(var(--text-lg), 2.5vw, var(--text-2xl));
     line-height: 1.6;
-    color: var(--color-text-secondary);
+    color: var(--color-text-on-white-secondary);
+    font-family: var(--font-body);
 }
 
 .philosophy__copy strong {
-    color: var(--color-accent-primary);
+    color: var(--color-brand-red);
     font-weight: 600;
 }
 
 .philosophy__emphasis {
-    color: var(--color-text-primary) !important;
+    color: var(--color-brand-black) !important;
     font-weight: 500;
     padding: var(--space-6);
-    border-left: 3px solid var(--color-accent-primary);
-    background: rgba(245, 166, 35, 0.05);
-    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    border-left: 3px solid var(--color-brand-red);
+    background: rgba(255, 49, 49, 0.04);
+    border-radius: var(--radius-2xl);
     margin-top: var(--space-4);
 }
 
@@ -168,7 +181,7 @@
     left: 0;
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(245, 166, 35, 0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 49, 49, 0.04) 0%, transparent 70%);
     transform: translateY(-50%);
     pointer-events: none;
 }
@@ -193,9 +206,8 @@
 
     .philosophy__emphasis {
         border-left: none;
-        border-top: 2px solid var(--color-accent-primary);
+        border-top: 2px solid var(--color-brand-red);
         padding: var(--space-5);
-        border-radius: var(--radius-lg);
     }
 
     .philosophy__quote-mark {

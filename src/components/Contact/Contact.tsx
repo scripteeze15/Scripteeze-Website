@@ -227,7 +227,7 @@ const Contact: React.FC = () => {
                     <div className="contact__header">
                         <span className="contact__label">Get in Touch</span>
                         <h2 className="contact__title">
-                            Let's Start Your <span className="text-gradient">Success Story</span>
+                            Let's Start Your <span className="script-accent text-gradient">Success Story</span>
                         </h2>
                         <p className="contact__subtitle">
                             Ready to transform your content strategy? Fill out the form below and we'll get back to you within 24 hours.

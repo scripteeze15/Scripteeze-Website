@@ -88,7 +88,7 @@ const Experience: React.FC = () => {
                     {/* Headline */}
                     <h2 className="experience__headline">
                         Experience beats<br />
-                        <span className="text-gradient">experimentation.</span>
+                        <span className="script-accent text-gradient">experimentation.</span>
                     </h2>
 
                     {/* Points */}

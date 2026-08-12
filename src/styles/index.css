@@ -1,37 +1,80 @@
 /* =========================================
    SCRIPTEEZE - Global Styles
+   Red / White / Black Editorial Identity
    ========================================= */
+
+/* Font Faces - Perandory & Burgues Script */
+@font-face {
+  font-family: 'Perandory';
+  src: url('/fonts/Perandory-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Perandory';
+  src: url('/fonts/Perandory-Regular.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Perandory';
+  src: url('/fonts/Perandory-Regular.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Burgues Script';
+  src: url('/fonts/Burgues Script Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* CSS Custom Properties (Design Tokens) */
 :root {
-  /* Colors - Dark Navy Theme */
-  --color-bg-primary: #0A0F1C;
-  --color-bg-secondary: #0E1426;
-  --color-bg-tertiary: #131B2E;
-  --color-bg-card: rgba(19, 27, 46, 0.6);
-  --color-bg-card-hover: rgba(26, 37, 61, 0.8);
+  /* Brand Colours — Red / White / Black */
+  --color-brand-red: #FF3131;
+  --color-brand-white: #FFFFFF;
+  --color-brand-black: #000000;
 
-  /* Gold / Amber Accents */
-  --color-accent-primary: #F5A623;
-  --color-accent-secondary: #D4940A;
-  --color-accent-light: #FFD980;
-  --color-accent-glow: rgba(245, 166, 35, 0.3);
+  /* Backgrounds */
+  --color-bg-primary: #FF3131;
+  --color-bg-secondary: #000000;
+  --color-bg-tertiary: #1A1A1A;
+  --color-bg-white: #FFFFFF;
+  --color-bg-card: rgba(255, 255, 255, 0.08);
+  --color-bg-card-hover: rgba(255, 255, 255, 0.14);
+
+  /* Accent — white as the main accent on red */
+  --color-accent-primary: #FFFFFF;
+  --color-accent-secondary: rgba(255, 255, 255, 0.85);
+  --color-accent-light: rgba(255, 255, 255, 0.6);
+  --color-accent-glow: rgba(255, 255, 255, 0.2);
 
   /* Text Colors */
   --color-text-primary: #FFFFFF;
-  --color-text-secondary: rgba(255, 255, 255, 0.8);
-  --color-text-tertiary: rgba(255, 255, 255, 0.6);
+  --color-text-secondary: rgba(255, 255, 255, 0.9);
+  --color-text-tertiary: rgba(255, 255, 255, 0.65);
   --color-text-muted: rgba(255, 255, 255, 0.4);
+  --color-text-on-white: #000000;
+  --color-text-on-white-secondary: rgba(0, 0, 0, 0.7);
 
-  /* Gradients */
-  --gradient-gold: linear-gradient(135deg, #F5A623 0%, #D4940A 50%, #FFD980 100%);
-  --gradient-bg: linear-gradient(180deg, #0A0F1C 0%, #0E1426 50%, #131B2E 100%);
-  --gradient-radial: radial-gradient(ellipse at center, rgba(245, 166, 35, 0.08) 0%, transparent 70%);
-  --gradient-card: linear-gradient(145deg, rgba(245, 166, 35, 0.05) 0%, transparent 50%);
+  /* Gradients — minimised, editorial */
+  --gradient-gold: linear-gradient(135deg, #FFFFFF 0%, rgba(255, 255, 255, 0.85) 100%);
+  --gradient-bg: linear-gradient(180deg, #FF3131 0%, #E02020 100%);
+  --gradient-radial: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+  --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
 
   /* Typography */
-  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Perandory', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Lora', 'Inter', Georgia, serif;
+  --font-script: 'Playfair Display', Georgia, serif;
 
   /* Font Sizes */
   --text-xs: 0.75rem;
@@ -63,12 +106,13 @@
   --space-24: 6rem;
   --space-32: 8rem;
 
-  /* Border Radius */
+  /* Border Radius — premium rounded */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
   --radius-2xl: 24px;
+  --radius-3xl: 32px;
   --radius-full: 9999px;
 
   /* Transitions */
@@ -77,12 +121,12 @@
   --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-smooth: 600ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 40px var(--color-accent-glow);
+  /* Shadows — minimal */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.25);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 30px rgba(255, 255, 255, 0.15);
 
   /* Z-index */
   --z-base: 1;
@@ -130,7 +174,6 @@ body {
   line-height: 1.6;
   color: var(--color-text-primary);
   background-color: var(--color-bg-primary);
-  background-image: var(--gradient-bg);
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -144,15 +187,17 @@ h5,
 h6 {
   font-family: var(--font-heading);
   font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   color: var(--color-text-primary);
 }
 
 h1 {
   font-size: clamp(var(--text-5xl), 8vw, var(--text-9xl));
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: 0.04em;
 }
 
 h2 {
@@ -182,14 +227,27 @@ a:hover {
 
 /* Utility Classes */
 .text-gradient {
-  background: var(--gradient-gold);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-brand-white);
+  -webkit-text-fill-color: unset;
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
 }
 
 .accent {
   color: var(--color-accent-primary);
+}
+
+/* Script font class for Burgues Script accent words */
+.script-accent {
+  font-family: var(--font-script);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-style: italic;
+  display: inline-block;
+  line-height: 1.2;
+  font-size: 1.1em;
 }
 
 /* Container */
@@ -234,7 +292,7 @@ a:hover {
   font-family: var(--font-heading);
   font-size: var(--text-base);
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   border: none;
   border-radius: var(--radius-full);
   cursor: pointer;
@@ -242,48 +300,45 @@ a:hover {
   text-transform: uppercase;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary {
-  background: var(--gradient-gold);
-  color: var(--color-bg-primary);
-  box-shadow:
-    var(--shadow-glow),
-    0 4px 15px rgba(245, 166, 35, 0.3);
+  background: var(--color-brand-white);
+  color: var(--color-brand-red);
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 0 60px var(--color-accent-glow),
-    0 8px 25px rgba(245, 166, 35, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  background: var(--color-brand-black);
+  color: var(--color-brand-white);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.03);
+  background: transparent;
   color: var(--color-text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
+  border: 2px solid var(--color-brand-white);
 }
 
 .btn-secondary:hover {
-  background: rgba(245, 166, 35, 0.1);
-  border-color: var(--color-accent-primary);
-  color: var(--color-accent-primary);
-  transform: translateY(-3px);
+  background: var(--color-brand-white);
+  color: var(--color-brand-red);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
 /* Section Divider */
 .section-divider {
   width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
   margin: var(--space-4) 0;
 }
 
-/* Glow Text */
+/* Glow Text — now subtle white glow */
 .text-glow {
-  text-shadow: 0 0 40px rgba(245, 166, 35, 0.4);
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
 }
 
 /* Animated Underline */
@@ -298,7 +353,7 @@ a:hover {
   left: 0;
   width: 100%;
   height: 2px;
-  background: var(--gradient-gold);
+  background: var(--color-brand-white);
   transform: scaleX(0);
   transform-origin: right center;
   transition: transform var(--transition-base);
@@ -311,32 +366,31 @@ a:hover {
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-secondary);
+  background: var(--color-brand-black);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--color-accent-secondary), var(--color-accent-primary));
-  border-radius: var(--radius-full);
-  border: 2px solid var(--color-bg-secondary);
+  background: var(--color-brand-red);
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent-primary);
+  background: #E02020;
 }
 
 /* Selection */
 ::selection {
-  background: var(--color-accent-primary);
-  color: var(--color-bg-primary);
+  background: var(--color-brand-white);
+  color: var(--color-brand-red);
 }
 
 /* Focus States */
 :focus-visible {
-  outline: 2px solid var(--color-accent-primary);
+  outline: 2px solid var(--color-brand-white);
   outline-offset: 2px;
 }
 
@@ -353,9 +407,19 @@ ol {
   list-style: none;
 }
 
-/* Glass Effect */
+/* Glass Effect — now editorial dark panel */
 .glass {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Editorial supporting text class */
+.editorial-caption {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  color: var(--color-text-tertiary);
 }

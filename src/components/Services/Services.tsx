@@ -198,7 +198,7 @@ const Services: React.FC = () => {
                     <div className="services__header">
                         <span className="services__label">What We Offer</span>
                         <h2 className="services__title">
-                            Services built for <span className="text-gradient">creators</span>
+                            Services built for <span className="script-accent text-gradient">creators</span>
                         </h2>
                         <p className="services__subtitle">
                             Everything you need to dominate social media, all under one roof.

@@ -126,7 +126,7 @@ const FinalCTA: React.FC = () => {
                     {/* Headline */}
                     <h2 className="final-cta__headline">
                         {headline.split(' ').map((word, index) => (
-                            <span key={index} className="word">
+                            <span key={index} className={`word ${word === 'Amazing' ? 'script-accent' : ''}`}>
                                 {word}
                                 {index < headline.split(' ').length - 1 && ' '}
                             </span>

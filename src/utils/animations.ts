@@ -289,7 +289,7 @@ export const glowPulse = (
     const tl = gsap.timeline({ repeat: -1, yoyo: true });
 
     tl.to(element, {
-        boxShadow: `0 0 ${60 * intensity}px rgba(245, 166, 35, ${0.3 * intensity})`,
+        boxShadow: `0 0 ${60 * intensity}px rgba(255, 255, 255, ${0.2 * intensity})`,
         duration,
         ease: 'power1.inOut',
     });

@@ -1,0 +1,107 @@
+/* [project]/src/components/Footer/Footer.css [app-client] (css) */
+.footer {
+  padding: var(--space-12) 0;
+  background: var(--color-brand-black);
+  border-top: 3px solid var(--color-brand-red);
+  position: relative;
+}
+
+.footer__content {
+  align-items: center;
+  gap: var(--space-6);
+  flex-direction: column;
+  display: flex;
+}
+
+.footer__logo {
+  text-align: center;
+}
+
+.footer__logo-image {
+  object-fit: contain;
+  filter: drop-shadow(0 0 15px #ff313133);
+  width: 80px;
+  height: 80px;
+  transition: filter var(--transition-base), transform var(--transition-base);
+  border-radius: 50%;
+}
+
+.footer__logo-image:hover {
+  filter: drop-shadow(0 0 25px #ff313166);
+  transform: scale(1.05);
+}
+
+.footer__divider {
+  background: var(--color-brand-red);
+  opacity: .5;
+  width: 60px;
+  height: 1px;
+}
+
+.footer__bottom {
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+}
+
+.footer__copyright {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+}
+
+.footer__back-to-top {
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  border-radius: var(--radius-2xl);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  opacity: 0;
+  pointer-events: none;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  background: none;
+  border: 1px solid #ffffff26;
+  font-weight: 500;
+  display: flex;
+  transform: translateY(10px);
+}
+
+.footer__back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.footer__back-to-top:hover {
+  color: var(--color-brand-red);
+  border-color: var(--color-brand-red);
+}
+
+.footer__back-to-top svg {
+  transition: transform var(--transition-fast);
+}
+
+.footer__back-to-top:hover svg {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .footer__bottom {
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .footer__back-to-top {
+    order: -1;
+  }
+}
+
+/*# sourceMappingURL=src_components_Footer_Footer_css_1igg3k2._.single.css.map*/
