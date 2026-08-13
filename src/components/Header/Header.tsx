@@ -28,7 +28,7 @@ const Header: React.FC = () => {
                 {/* Logo */}
                 <a href="#hero" className="header__logo">
                     <img
-                        src="/scripteeze-logo.jpg"
+                        src="/scripteeze-logo.png"
                         alt="SCRIPTEEZE"
                         className="header__logo-image"
                     />

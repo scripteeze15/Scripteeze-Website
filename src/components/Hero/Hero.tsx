@@ -141,7 +141,7 @@ const Hero: React.FC = () => {
                 {/* Logo */}
                 <div ref={logoRef} className="hero__logo">
                     <img
-                        src="/scripteeze-logo.jpg"
+                        src="/scripteeze-logo.png"
                         alt="SCRIPTEEZE Logo"
                         className="hero__logo-image"
                     />

@@ -106,7 +106,7 @@ const FinalCTA: React.FC = () => {
                 <div className="final-cta__gradient-2" />
                 <div ref={logoWatermarkRef} className="final-cta__watermark">
                     <img
-                        src="/scripteeze-logo.jpg"
+                        src="/scripteeze-logo.png"
                         alt=""
                         className="final-cta__watermark-image"
                     />

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import "../styles/index.css";
 
 export const metadata: Metadata = {
@@ -13,14 +13,14 @@ export const metadata: Metadata = {
         description: "A creator-first social media agency built to win on today's platforms.",
         url: "https://scripteeze.in",
         siteName: "SCRIPTEEZE",
-        images: ["/scripteeze-logo.jpg"],
+        images: ["/scripteeze-logo.png"],
         type: "website",
     },
     twitter: {
         card: "summary_large_image",
         title: "SCRIPTEEZE - We Build Stories That Sell",
         description: "A creator-first social media agency built to win on today's platforms.",
-        images: ["/scripteeze-logo.jpg"],
+        images: ["/scripteeze-logo.png"],
     },
 };
 
