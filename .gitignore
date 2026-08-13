@@ -17,6 +17,12 @@ dist-ssr
 server/*.csv
 server/*.lock
 
+# Local env files. CONTACT_EXPORT_TOKEN belongs in Hostinger's environment
+# variables, never in the repo. .env.example stays tracked as documentation.
+.env
+.env.*
+!.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

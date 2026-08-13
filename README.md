@@ -131,6 +131,36 @@ All animations are handled through GSAP with custom utilities in `src/utils/anim
 **Contact**: info@scripteeze.in  
 **Instagram**: [@scripteeze](https://instagram.com/scripteeze)
 
+## Deployment (Hostinger Node.js app)
+
+This app has server-side API routes and writes a CSV to disk, so it **must run as
+a Node.js process**. It cannot be served as static files.
+
+Deploy it the same way as the other Node sites on this account: the app lives in
+`~/nodejs/`, and Hostinger writes a small `.htaccess` proxy stub into
+`~/public_html/` that forwards requests to the Node process. `public_html` should
+**not** contain the app itself.
+
+In hPanel, create a **Node.js application** for the domain with:
+
+| Setting | Value |
+|---------|-------|
+| Node version | 22.x |
+| Application root | `nodejs` |
+| Startup file | `server.js` |
+| Build command | `npm run build` |
+
+`server.js` is the custom Next.js server in this repo. It reads the port from
+`process.env.PORT` (injected by Hostinger) and binds `0.0.0.0`.
+
+> **Do not** deploy this repo through the static Git/build pipeline with output
+> directory `.next`. That copies Next's internal build output into `public_html`,
+> which has no `index.html` and returns **403 Forbidden**. It also drops
+> everything in `public/` — the logo, fonts, team photos and `portfolio.pdf` —
+> because Next never copies `public/` into `.next`.
+
+Deploy order on the server: `npm install` → `npm run build` → start/restart the app.
+
 ## Contact submissions on Hostinger
 
 The contact form is handled by the Next.js route at `POST /api/contact`. Valid
