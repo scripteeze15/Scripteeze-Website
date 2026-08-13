@@ -111,11 +111,49 @@ function csvCell(value: string): string {
     return `"${protectSpreadsheetCell(value).replace(/"/g, '""')}"`;
 }
 
+// Hostinger rebuilds the app into a disposable `hbuilds` tree on every deploy,
+// so anything written inside the application directory is destroyed with it.
+// The account home is spelled out rather than read from os.homedir() because
+// Hostinger's build and runtime processes can resolve different HOME values and
+// would then read and write two different CSVs.
+const HOSTINGER_ACCOUNT_HOME = '/home/u376055756';
+const SUBMISSIONS_DIRECTORY_NAME = 'scripteeze-submissions';
+
+function assertDurableProductionDirectory(rawValue: string, resolved: string): void {
+    if (process.env.NODE_ENV !== 'production' || process.platform === 'win32') return;
+
+    // A relative value is the mistake this is really guarding against: it
+    // resolves against the application folder, which the next deploy discards.
+    // `hbuilds` and `public_html` are Hostinger's own disposable trees.
+    const segments = resolved.split(path.sep);
+    const isDisposable = !path.isAbsolute(rawValue)
+        || segments.includes('hbuilds')
+        || segments.includes('public_html');
+
+    if (isDisposable) {
+        throw new Error(
+            `Refusing to store submissions in ${resolved}: Hostinger replaces this directory on every `
+            + 'deploy. Point CONTACT_DATA_DIR at an absolute path outside the application folder.',
+        );
+    }
+}
+
 export function getContactDataDirectory(): string {
     const configuredDirectory = process.env.CONTACT_DATA_DIR?.trim();
-    return configuredDirectory
-        ? path.resolve(configuredDirectory)
-        : path.join(process.cwd(), 'server');
+
+    if (configuredDirectory) {
+        const resolved = path.resolve(configuredDirectory);
+        assertDurableProductionDirectory(configuredDirectory, resolved);
+        return resolved;
+    }
+
+    // Durable by default in production, so a missing env var cannot quietly cost
+    // us a deploy's worth of enquiries.
+    if (process.env.NODE_ENV === 'production' && process.platform !== 'win32') {
+        return path.join(HOSTINGER_ACCOUNT_HOME, SUBMISSIONS_DIRECTORY_NAME);
+    }
+
+    return path.join(process.cwd(), 'server');
 }
 
 export function getSubmissionsCsvPath(): string {

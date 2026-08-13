@@ -136,44 +136,55 @@ All animations are handled through GSAP with custom utilities in `src/utils/anim
 This app has server-side API routes and writes a CSV to disk, so it **must run as
 a Node.js process**. It cannot be served as static files.
 
-Deploy it the same way as the other Node sites on this account: the app lives in
-`~/nodejs/`, and Hostinger writes a small `.htaccess` proxy stub into
-`~/public_html/` that forwards requests to the Node process. `public_html` should
-**not** contain the app itself.
+Deploy it as a **Hostinger Node.js web app**, the same way as `coffeepecode`
+on this account. No custom server file is needed — Hostinger builds and then runs
+the app's own start script:
 
-In hPanel, create a **Node.js application** for the domain with:
+```bash
+npm install && npm run build && npm start
+```
 
-| Setting | Value |
-|---------|-------|
-| Node version | 22.x |
-| Application root | `nodejs` |
-| Startup file | `server.js` |
-| Build command | `npm run build` |
+Set **Node version 22.x**. Configure `CONTACT_EXPORT_TOKEN` under the Node.js web
+app's **Environment Variables**, then redeploy and restart the app once so the
+secret is loaded.
 
-`server.js` is the custom Next.js server in this repo. It reads the port from
-`process.env.PORT` (injected by Hostinger) and binds `0.0.0.0`.
-
-> **Do not** deploy this repo through the static Git/build pipeline with output
-> directory `.next`. That copies Next's internal build output into `public_html`,
-> which has no `index.html` and returns **403 Forbidden**. It also drops
-> everything in `public/` — the logo, fonts, team photos and `portfolio.pdf` —
-> because Next never copies `public/` into `.next`.
-
-Deploy order on the server: `npm install` → `npm run build` → start/restart the app.
+> **Do not** deploy this repo as a static site with output directory `.next`.
+> That copies Next's internal build output into `public_html`, which has no
+> `index.html` and returns **403 Forbidden**. It also drops everything in
+> `public/` — the logo, fonts, team photos and `portfolio.pdf` — because Next
+> never copies `public/` into `.next`. A static export is not an option either:
+> `/api/contact` is a POST route handler, which static export rejects outright.
 
 ## Contact submissions on Hostinger
 
 The contact form is handled by the Next.js route at `POST /api/contact`. Valid
-submissions are appended to `server/submissions.csv` on the Node.js server. The
-CSV is created automatically on the first successful submission.
+submissions are appended to `submissions.csv`, created automatically on the first
+successful submission.
+
+### ⚠️ Where the CSV must live
+
+Hostinger rebuilds the app into a disposable `hbuilds` tree on every deploy, so
+**anything written inside the application folder is destroyed with it**. In
+production the app therefore defaults to the account's persistent path:
+
+```text
+/home/u376055756/scripteeze-submissions/submissions.csv
+```
+
+This needs no environment variable and no manually created folder. `CONTACT_DATA_DIR`
+remains available as an override, but only for an **absolute** path outside the
+application folder — the app now refuses to write to `hbuilds`, `public_html`, or
+anywhere under the app directory rather than losing enquiries silently.
+
+Locally (and on Windows) it still writes to `server/submissions.csv` in the repo,
+which is git-ignored.
 
 ### Hostinger environment variables
 
-Add these under **Website Dashboard → Environment Variables**, then redeploy:
+Add this under the Node.js web app's **Environment Variables**, then redeploy:
 
 ```env
 CONTACT_EXPORT_TOKEN=use-a-long-random-secret-with-at-least-24-characters
-CONTACT_DATA_DIR=./server
 ```
 
 Generate a strong export token locally with:
@@ -182,12 +193,9 @@ Generate a strong export token locally with:
 node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
 ```
 
-`CONTACT_DATA_DIR` is optional and defaults to `server` in the application root.
-You can download `server/submissions.csv` directly through Hostinger File Manager.
-Because application deployments can replace files, export or back up this CSV
-before changing repositories or performing any deployment that replaces the app
-directory. If Hostinger gives you a separate persistent writable directory, set
-`CONTACT_DATA_DIR` to that absolute path.
+The submissions folder uses a normal name and sits directly under the account
+home, so it shows up in hPanel's File Manager and the CSV can be downloaded from
+there as well as through the export endpoint below.
 
 ### Secure CSV export
 
