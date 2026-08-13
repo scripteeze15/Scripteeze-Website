@@ -1,3 +1,4 @@
+import { deliverQueuedNotifications, queueContactNotification } from '../../../lib/contact-notifications';
 import { appendContactSubmission, validateContactSubmission } from '../../../lib/contact-submissions';
 
 export const runtime = 'nodejs';
@@ -103,6 +104,27 @@ export async function POST(request: Request): Promise<Response> {
         }
 
         const saved = await appendContactSubmission(data);
+
+        // The enquiry is now safely on disk. Everything below is best effort:
+        // an email problem must never turn a saved enquiry into an error the
+        // visitor sees, so failures are logged and swallowed.
+        try {
+            await queueContactNotification({
+                id: saved.id,
+                submittedAt: saved.submittedAt,
+                name: data.name,
+                email: data.email,
+                phone: data.phone,
+                service: data.service,
+                message: data.message,
+            });
+
+            // Awaited rather than left in the background: managed hosts can
+            // freeze the process the moment the response is flushed.
+            await deliverQueuedNotifications();
+        } catch (error) {
+            console.error('Could not queue the contact notification email:', error);
+        }
 
         return jsonResponse(
             {

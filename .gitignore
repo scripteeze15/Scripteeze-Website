@@ -16,6 +16,7 @@ dist-ssr
 # Runtime contact-form data
 server/*.csv
 server/*.lock
+server/.contact-outbox/
 
 # Local env files. CONTACT_EXPORT_TOKEN belongs in Hostinger's environment
 # variables, never in the repo. .env.example stays tracked as documentation.

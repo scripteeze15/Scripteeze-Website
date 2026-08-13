@@ -181,9 +181,11 @@ which is git-ignored.
 
 ### Hostinger environment variables
 
-Add this under the Node.js web app's **Environment Variables**, then redeploy:
+Add these under the Node.js web app's **Environment Variables**, then redeploy
+and restart the app once so the secrets load:
 
 ```env
+SMTP_PASS=<mailbox password for info@scripteeze.in>
 CONTACT_EXPORT_TOKEN=use-a-long-random-secret-with-at-least-24-characters
 ```
 
@@ -196,6 +198,38 @@ node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
 The submissions folder uses a normal name and sits directly under the account
 home, so it shows up in hPanel's File Manager and the CSV can be downloaded from
 there as well as through the export endpoint below.
+
+## Email notifications
+
+Every valid enquiry is emailed to **scripteeze15@gmail.com**, with the visitor's
+address as `Reply-To` so you can answer straight from Gmail.
+
+Mail is sent through Hostinger SMTP (`smtp.hostinger.com:465`, TLS) authenticated
+as **info@scripteeze.in**. That mailbox must exist under hPanel → Emails, and its
+password goes in `SMTP_PASS`. `From` is deliberately the authenticated mailbox
+rather than the visitor's address — Hostinger rejects a mismatched sender, and a
+Gmail `From` would fail SPF/DMARC and land in spam.
+
+`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `MAIL_FROM` and `MAIL_TO` are optional
+overrides; the defaults above are built in.
+
+### Mail failures never lose an enquiry
+
+Order of operations in `POST /api/contact`:
+
+1. Append the row to `submissions.csv` and flush it to disk.
+2. Write the pending notification to `<data dir>/.contact-outbox/<id>.json`
+   (`0600`, fsynced) — durable *before* any SMTP connection is opened.
+3. Attempt delivery. On success the queue file is deleted.
+
+If SMTP is unreachable, steps 1 and 2 have already happened, the visitor still
+gets a success response, and the notification stays queued. The next submission
+drains the backlog first, oldest first, so a mail outage self-heals with no lost
+enquiries and no duplicate sends. Delivery stops at the first failure in a run so
+one dead connection cannot stall the form, and each attempt is capped at 10s.
+
+If `SMTP_PASS` is unset the site still works exactly as before — enquiries are
+saved and notifications simply queue until the password is added.
 
 ### Secure CSV export
 

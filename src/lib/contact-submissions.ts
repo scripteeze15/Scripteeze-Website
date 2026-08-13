@@ -160,6 +160,13 @@ export function getSubmissionsCsvPath(): string {
     return path.join(getContactDataDirectory(), 'submissions.csv');
 }
 
+// Pending email notifications sit beside the CSV so they inherit the same
+// durable location. A queued notification has to survive a deploy for the same
+// reason the enquiry does.
+export function getNotificationOutboxDirectory(): string {
+    return path.join(getContactDataDirectory(), '.contact-outbox');
+}
+
 export async function appendContactSubmission(data: ContactSubmissionInput): Promise<{ id: string; submittedAt: string }> {
     const id = randomUUID();
     const submittedAt = new Date().toISOString();
