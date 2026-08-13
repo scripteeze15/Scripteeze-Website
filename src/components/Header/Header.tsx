@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Header - Fixed navigation with portfolio button
  */
 
@@ -28,7 +28,7 @@ const Header: React.FC = () => {
                 {/* Logo */}
                 <a href="#hero" className="header__logo">
                     <img
-                        src="/scripteeze-logo.png"
+                        src="/scripteeze-logo.jpg"
                         alt="SCRIPTEEZE"
                         className="header__logo-image"
                     />

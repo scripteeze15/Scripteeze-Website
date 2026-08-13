@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Hero Section - Full viewport with enhanced animated background
  * Word-by-word text animation, floating shapes, and CTAs
  */
@@ -141,7 +141,7 @@ const Hero: React.FC = () => {
                 {/* Logo */}
                 <div ref={logoRef} className="hero__logo">
                     <img
-                        src="/scripteeze-logo.png"
+                        src="/scripteeze-logo.jpg"
                         alt="SCRIPTEEZE Logo"
                         className="hero__logo-image"
                     />

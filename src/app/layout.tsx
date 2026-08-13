@@ -13,14 +13,14 @@ export const metadata: Metadata = {
         description: "A creator-first social media agency built to win on today's platforms.",
         url: "https://scripteeze.in",
         siteName: "SCRIPTEEZE",
-        images: ["/scripteeze-logo.png"],
+        images: ["/scripteeze-logo.jpg"],
         type: "website",
     },
     twitter: {
         card: "summary_large_image",
         title: "SCRIPTEEZE - We Build Stories That Sell",
         description: "A creator-first social media agency built to win on today's platforms.",
-        images: ["/scripteeze-logo.png"],
+        images: ["/scripteeze-logo.jpg"],
     },
 };
 
@@ -32,8 +32,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <head>
-                <link rel="icon" type="image/png" href="/scripteeze-logo.png" />
-                <link rel="apple-touch-icon" href="/scripteeze-logo.png" />
+                {/* A dedicated 180px icon: the full logo is 1024px, far more
+                    than a favicon or home-screen tile ever needs to download. */}
+                <link rel="icon" type="image/png" href="/scripteeze-icon.png" />
+                <link rel="apple-touch-icon" href="/scripteeze-icon.png" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
                 <link

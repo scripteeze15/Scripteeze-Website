@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Footer - Minimal footer with back-to-top functionality
  */
 
@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
                     {/* Logo */}
                     <div className="footer__logo">
                         <img
-                            src="/scripteeze-logo.png"
+                            src="/scripteeze-logo.jpg"
                             alt="SCRIPTEEZE Logo"
                             className="footer__logo-image"
                         />
@@ -85,7 +85,7 @@ const Footer: React.FC = () => {
                     {/* Copyright & Back to Top */}
                     <div className="footer__bottom">
                         <p className="footer__copyright">
-                            © {currentYear} Scripteeze. All rights reserved.
+                            Â© {currentYear} Scripteeze. All rights reserved.
                         </p>
 
                         <button
