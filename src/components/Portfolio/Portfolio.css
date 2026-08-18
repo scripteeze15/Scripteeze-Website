@@ -1,0 +1,1188 @@
+/* =========================================
+   Portfolio Page - Ported from the standalone
+   Scripteeze portfolio deck.
+
+   Every rule is scoped under .portfolio and every
+   class carries a pf- prefix: the deck styles bare
+   `nav`, `section`, `footer` and `.btn-primary`,
+   all of which already mean something else in
+   src/styles/index.css.
+   ========================================= */
+
+.portfolio {
+    /* The deck's palette. Red is the ground, near-black is the accent. */
+    --pf-red: #FF3131;
+    --pf-ink: #111;
+    --pf-ink-hover: #333;
+    --pf-white: #FFFFFF;
+    --pf-grey: rgba(255, 255, 255, 0.8);
+
+    font-family: var(--font-body);
+    color: var(--pf-white);
+    background: var(--pf-red);
+    overflow-x: hidden;
+}
+
+/* Film-grain wash over the whole page. */
+.portfolio::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.28;
+}
+
+/* Undo the global heading shadow and paragraph measure — the deck sets its own. */
+.portfolio h1,
+.portfolio h2,
+.portfolio h3 {
+    text-shadow: none;
+}
+
+.portfolio p {
+    max-width: none;
+    color: inherit;
+}
+
+/* ---------- Nav ---------- */
+
+.pf-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 500;
+    padding: 18px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(255, 49, 49, 0.97), transparent);
+    backdrop-filter: blur(10px);
+}
+
+.pf-logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.pf-logo-img {
+    height: 38px;
+    width: auto;
+    display: block;
+}
+
+.pf-nav-cta {
+    background: var(--pf-ink);
+    color: var(--pf-red);
+    padding: 10px 22px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: all 0.2s;
+}
+
+.pf-nav-cta:hover {
+    background: var(--pf-ink-hover);
+    color: var(--pf-red);
+    transform: translateY(-2px);
+}
+
+/* ---------- Hero ---------- */
+
+.pf-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 120px 24px 80px;
+}
+
+.pf-hero__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 255, 255, 0.08), transparent 60%), #FF3131;
+}
+
+.pf-hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 20%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 20%, transparent 80%);
+}
+
+.pf-hero__content {
+    position: relative;
+    z-index: 2;
+    max-width: 920px;
+}
+
+.pf-hero__eyebrow {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--pf-ink);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: pf-fade-up 0.8s 0.2s forwards;
+}
+
+.pf-hero h1 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(3.5rem, 11vw, 8.5rem);
+    line-height: 0.95;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: pf-fade-up 0.8s 0.4s forwards;
+}
+
+.pf-hero__script {
+    display: block;
+    font-family: 'Times New Roman', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    text-transform: lowercase;
+    letter-spacing: 0.01em;
+    font-size: 1.05em;
+    line-height: 0.95;
+    color: var(--pf-white);
+    margin: -0.32em 0 0;
+}
+
+.pf-hero__tagline {
+    font-size: clamp(0.9rem, 2vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 560px;
+    margin: 0 auto 44px;
+    line-height: 1.75;
+    opacity: 0;
+    animation: pf-fade-up 0.8s 0.6s forwards;
+}
+
+.pf-hero__stats {
+    display: flex;
+    gap: 48px;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: pf-fade-up 0.8s 0.8s forwards;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 22px 40px;
+    border-radius: 4px;
+}
+
+.pf-stat__num {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: 0.04em;
+}
+
+.pf-stat__label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: 5px;
+}
+
+/* ---------- Marquee ---------- */
+
+.pf-marquee {
+    padding: 44px 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.94) 50%, rgba(0, 0, 0, 0.88));
+}
+
+.pf-marquee__track {
+    display: flex;
+    gap: 70px;
+    animation: pf-marquee 24s linear infinite;
+    white-space: nowrap;
+}
+
+.pf-marquee__track:hover {
+    animation-play-state: paused;
+}
+
+.pf-marquee__item {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.155em;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.pf-marquee__item--accent {
+    color: var(--pf-red);
+}
+
+/* ---------- Section shell ---------- */
+
+.pf-section {
+    padding: 90px 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.pf-section-tag {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #000;
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+}
+
+.pf-section-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+}
+
+.pf-section-title em {
+    font-style: italic;
+    display: block;
+    font-family: 'Times New Roman', Georgia, serif;
+    font-weight: 400;
+    text-transform: lowercase;
+    letter-spacing: 0.01em;
+    font-size: 0.7em;
+    line-height: 0.95;
+    color: var(--pf-white);
+    margin-top: -0.12em;
+}
+
+.pf-section-desc {
+    margin-top: 14px;
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 600px;
+    line-height: 1.75;
+    font-size: 0.92rem;
+}
+
+.pf-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 18px;
+}
+
+.pf-badge {
+    padding: 6px 14px;
+    border: 1px solid #000;
+    border-radius: 2px;
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #000;
+}
+
+/* ---------- Video grids ---------- */
+
+.pf-video-grid {
+    display: grid;
+    gap: 14px;
+    margin-top: 40px;
+}
+
+.pf-video-grid--5 {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.pf-video-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Cards are buttons so they are keyboard reachable — reset the UA styles. */
+.pf-video-card {
+    position: relative;
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--pf-red);
+    cursor: pointer;
+    aspect-ratio: 9 / 16;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.pf-video-card:hover {
+    transform: translateY(-7px) scale(1.018);
+    box-shadow: 0 28px 55px rgba(0, 0, 0, 0.15);
+}
+
+.pf-video-card__thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.pf-video-card:hover .pf-video-card__thumb {
+    transform: scale(1.06);
+}
+
+.pf-video-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: transparent;
+    transition: background 0.3s;
+    pointer-events: none;
+}
+
+.pf-video-card:hover .pf-video-card__overlay {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.pf-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.75);
+    width: 54px;
+    height: 54px;
+    background: rgba(0, 0, 0, 0.18);
+    border: 2px solid var(--pf-ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    backdrop-filter: blur(4px);
+}
+
+.pf-video-card:hover .pf-play-btn,
+.pf-video-card:focus-visible .pf-play-btn {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    background: rgba(0, 0, 0, 0.32);
+}
+
+.pf-play-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--pf-ink);
+    margin-left: 3px;
+}
+
+.pf-video-card__info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 14px 14px;
+}
+
+.pf-video-card__num {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.6rem;
+    color: #fff;
+    letter-spacing: 0.12em;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 4px 8px;
+    border-radius: 2px;
+}
+
+/* ---------- Delivery-promise strip ---------- */
+
+.pf-features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 60px;
+}
+
+.pf-feature {
+    padding: 34px 26px;
+    background: var(--pf-red);
+    text-align: center;
+    transition: background 0.3s;
+}
+
+.pf-feature:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.pf-feature__icon {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+}
+
+.pf-feature__title {
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 7px;
+    letter-spacing: 0.05em;
+}
+
+.pf-feature__desc {
+    font-size: 0.74rem;
+    color: var(--pf-grey);
+    line-height: 1.6;
+}
+
+/* ---------- Divider ---------- */
+
+.pf-divider {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.35), transparent);
+}
+
+/* ---------- Thumbnail / graphic design grid ---------- */
+
+.pf-thumb-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 40px;
+}
+
+.pf-thumb-item {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.pf-thumb-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.pf-thumb-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pf-thumb-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 49, 49, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.pf-thumb-item:hover .pf-thumb-overlay {
+    opacity: 1;
+}
+
+.pf-thumb-overlay span {
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pf-ink);
+}
+
+/* ---------- Team ---------- */
+
+.pf-team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.pf-team-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 6px;
+    padding: 30px;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(2px);
+}
+
+.pf-team-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--pf-ink), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.pf-team-card:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-4px);
+}
+
+.pf-team-card:hover::before {
+    opacity: 1;
+}
+
+.pf-team-card__name {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: 0.015em;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+}
+
+.pf-team-card__role {
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pf-ink);
+    margin-bottom: 14px;
+}
+
+.pf-team-card__ig {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.82rem;
+    text-decoration: none;
+    margin-bottom: 20px;
+    transition: color 0.2s;
+}
+
+.pf-team-card__ig:hover {
+    color: var(--pf-ink);
+}
+
+.pf-team-card__ig svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+    flex-shrink: 0;
+}
+
+.pf-brands-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--pf-grey);
+    margin-bottom: 10px;
+}
+
+.pf-brand-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.pf-brand-pill {
+    padding: 5px 11px;
+    border: 1px solid #000;
+    border-radius: 2px;
+    font-size: 0.67rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #fff;
+    text-transform: uppercase;
+    background: #000;
+    transition: all 0.2s;
+}
+
+.pf-brand-pill:hover {
+    border-color: #fff;
+}
+
+/* ---------- Pill badge ---------- */
+
+.pf-pill {
+    display: inline-block;
+    padding: 7px 18px;
+    border: 1px solid var(--pf-red);
+    border-radius: 30px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pf-red);
+    margin-bottom: 20px;
+}
+
+/* ---------- Philosophy (white panel) ---------- */
+
+.pf-philosophy {
+    background: #fff;
+    color: #111;
+    padding: 110px 50px;
+}
+
+.pf-philosophy__inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.pf-philosophy__heading {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+    line-height: 0.92;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    color: #111;
+}
+
+.pf-philosophy__heading em {
+    display: block;
+    font-style: italic;
+    font-family: 'Times New Roman', Georgia, serif;
+    font-weight: 400;
+    text-transform: lowercase;
+    color: var(--pf-red);
+    font-size: 0.9em;
+    line-height: 1;
+    margin-top: -0.26em;
+}
+
+.pf-philosophy__body p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 18px;
+}
+
+.pf-philosophy__body strong {
+    color: var(--pf-red);
+}
+
+.pf-quote {
+    border-left: 3px solid var(--pf-red);
+    background: rgba(255, 49, 49, 0.06);
+    padding: 22px 26px;
+    font-size: 1.05rem;
+    color: #111;
+    line-height: 1.7;
+    border-radius: 2px;
+    margin-top: 10px;
+}
+
+/* ---------- Services (black panel) ---------- */
+
+.pf-services {
+    background: #000;
+    padding: 110px 50px;
+}
+
+.pf-services__header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+}
+
+.pf-services__header .pf-pill {
+    background: rgba(255, 49, 49, 0.08);
+}
+
+.pf-services__header .pf-section-title {
+    text-align: center;
+}
+
+.pf-services__header .pf-section-desc {
+    margin: 14px auto 0;
+    text-align: center;
+}
+
+.pf-services__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.pf-service-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 34px 30px;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.pf-service-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--pf-red);
+}
+
+.pf-service-card__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 49, 49, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+.pf-service-card h3 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.pf-service-card p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.65;
+}
+
+.pf-execution {
+    max-width: 900px;
+    margin: 60px auto 0;
+    background: rgba(255, 49, 49, 0.08);
+    border: 1px solid rgba(255, 49, 49, 0.35);
+    border-radius: 14px;
+    padding: 26px 40px;
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.pf-execution strong {
+    color: var(--pf-red);
+}
+
+/* ---------- Right fit (black panel) ---------- */
+
+.pf-fit {
+    background: #000;
+    padding: 100px 50px;
+}
+
+.pf-fit__inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.pf-fit__heading {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    line-height: 0.98;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+}
+
+.pf-fit__heading em {
+    font-style: italic;
+    display: block;
+    font-family: 'Times New Roman', Georgia, serif;
+    font-weight: 400;
+    text-transform: lowercase;
+    color: var(--pf-red);
+    line-height: 1;
+    margin-top: -0.24em;
+}
+
+.pf-fit__list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.pf-fit__item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px 22px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #fff;
+}
+
+.pf-fit__check {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(255, 49, 49, 0.18);
+    color: var(--pf-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+/* ---------- Closing CTA ---------- */
+
+.pf-cta {
+    padding: 120px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.pf-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255, 255, 255, 0.06), transparent 70%);
+    pointer-events: none;
+}
+
+.pf-arcs {
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.pf-arcs--tl {
+    top: -60px;
+    left: -60px;
+}
+
+.pf-arcs svg {
+    width: 100%;
+    height: 100%;
+}
+
+.pf-cta h2 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    font-size: clamp(2.8rem, 7.5vw, 6.5rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+}
+
+.pf-cta h2 span {
+    display: block;
+    font-family: 'Times New Roman', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    text-transform: lowercase;
+    letter-spacing: 0.01em;
+    font-size: 1.05em;
+    line-height: 0.95;
+    color: var(--pf-white);
+    margin: -0.32em 0 0;
+}
+
+.pf-cta p {
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 500px;
+    margin: 0 auto 38px;
+    line-height: 1.75;
+}
+
+.pf-cta__btns {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pf-btn-primary {
+    background: var(--pf-ink);
+    color: var(--pf-red);
+    padding: 16px 38px;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+    border: 2px solid var(--pf-ink);
+}
+
+.pf-btn-primary:hover {
+    background: transparent;
+    color: var(--pf-ink);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.pf-btn-secondary {
+    padding: 16px 38px;
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.92);
+    transition: all 0.2s;
+}
+
+.pf-btn-secondary:hover {
+    border-color: var(--pf-ink);
+    color: var(--pf-ink);
+    transform: translateY(-3px);
+}
+
+/* ---------- Footer ---------- */
+
+.pf-footer {
+    padding: 36px 50px;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.pf-footer__logo {
+    height: 30px;
+    width: auto;
+    display: block;
+}
+
+.pf-footer p {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.pf-footer__links {
+    display: flex;
+    gap: 20px;
+}
+
+.pf-footer a {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    font-size: 0.78rem;
+    transition: color 0.2s;
+}
+
+.pf-footer a:hover {
+    color: var(--pf-ink);
+}
+
+/* ---------- Player modal ---------- */
+
+.pf-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(90, 8, 8, 0.96);
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    padding: 20px;
+}
+
+.pf-modal--active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.pf-modal__inner {
+    position: relative;
+    width: min(400px, 88vw);
+    aspect-ratio: 9 / 16;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.pf-modal__inner iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.pf-modal__close {
+    position: absolute;
+    top: -48px;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--pf-ink);
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 8px;
+    line-height: 1;
+}
+
+/* ---------- Scroll reveal ---------- */
+
+.pf-reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.7s, transform 0.7s;
+}
+
+.pf-reveal--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------- Keyframes ---------- */
+
+@keyframes pf-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pf-marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1100px) {
+    .pf-video-grid--5 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .pf-philosophy__inner,
+    .pf-fit__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .pf-philosophy,
+    .pf-services,
+    .pf-fit {
+        padding: 70px 20px;
+    }
+
+    .pf-nav {
+        padding: 14px 20px;
+    }
+
+    .pf-section {
+        padding: 60px 20px;
+    }
+
+    .pf-video-grid--5,
+    .pf-video-grid--3 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .pf-team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pf-thumb-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pf-features {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pf-footer {
+        padding: 24px 20px;
+    }
+
+    .pf-cta {
+        padding: 80px 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .pf-hero__stats {
+        gap: 26px;
+    }
+
+    .pf-video-grid--5,
+    .pf-video-grid--3 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .pf-thumb-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
