@@ -28,7 +28,7 @@ const VideoModal: React.FC<VideoModalProps> = ({ videoId, onClose }) => {
             aria-modal="true"
             aria-label="Work sample player"
         >
-            <div className="pf-modal__inner">
+            <div className="pf-modal__panel">
                 <button
                     type="button"
                     className="pf-modal__close"
@@ -36,14 +36,20 @@ const VideoModal: React.FC<VideoModalProps> = ({ videoId, onClose }) => {
                     tabIndex={isOpen ? 0 : -1}
                     aria-label="Close player"
                 >
-                    ✕
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 6l12 12M18 6L6 18" />
+                    </svg>
                 </button>
-                <iframe
-                    title="Scripteeze work sample"
-                    src={isOpen ? drivePreview(videoId) : ''}
-                    allow="autoplay"
-                    allowFullScreen
-                />
+
+                {/* The frame clips its own corners, so the button lives outside it. */}
+                <div className="pf-modal__inner">
+                    <iframe
+                        title="Scripteeze work sample"
+                        src={isOpen ? drivePreview(videoId) : ''}
+                        allow="autoplay"
+                        allowFullScreen
+                    />
+                </div>
             </div>
         </div>
     );

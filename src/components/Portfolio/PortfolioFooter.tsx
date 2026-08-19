@@ -4,7 +4,7 @@
 
 const PortfolioFooter: React.FC = () => (
     <footer className="pf-footer">
-        <img src="/scripteeze-logo.png" alt="SCRIPTEEZE" className="pf-footer__logo" />
+        <img src="/scripteeze-wordmark.png" alt="SCRIPTEEZE" className="pf-footer__logo" />
         <p>Creator-Led Content Studio · Bangalore · info@scripteeze.in</p>
         <div className="pf-footer__links">
             <a href="https://www.scripteeze.in" target="_blank" rel="noopener noreferrer">

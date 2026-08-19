@@ -41,9 +41,10 @@
     text-shadow: none;
 }
 
+/* Only the measure is reset. Colour stays with the pf- classes below —
+   `.portfolio p` would out-specify every one of them. */
 .portfolio p {
     max-width: none;
-    color: inherit;
 }
 
 /* ---------- Nav ---------- */
@@ -1051,9 +1052,14 @@
     pointer-events: all;
 }
 
-.pf-modal__inner {
+.pf-modal__panel {
     position: relative;
     width: min(400px, 88vw);
+}
+
+.pf-modal__inner {
+    position: relative;
+    width: 100%;
     aspect-ratio: 9 / 16;
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 4px;
@@ -1066,17 +1072,28 @@
     border: none;
 }
 
+/* The deck painted this #111 on a near-black overlay, which left it invisible.
+   White, with a drawn glyph rather than a font character that can fall back. */
 .pf-modal__close {
     position: absolute;
     top: -48px;
     right: 0;
+    display: flex;
     background: none;
     border: none;
-    color: var(--pf-ink);
-    font-size: 1.8rem;
+    color: var(--pf-white);
     cursor: pointer;
     padding: 8px;
     line-height: 1;
+}
+
+.pf-modal__close svg {
+    width: 26px;
+    height: 26px;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    fill: none;
 }
 
 /* ---------- Scroll reveal ---------- */
